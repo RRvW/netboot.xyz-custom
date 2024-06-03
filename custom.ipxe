@@ -28,9 +28,9 @@ boot || goto custom_exit
 :option_sb
 ## taken from https://eu.edge.kernel.org/fedora/releases/40/Kinoite/x86_64/os/boot/grub2/grub.cfg
 set base_url http://download.fedoraproject.org/pub/fedora/linux/releases/40/Silverblue/x86_64/os
-kernel ${base_url}/images/pxeboot/vmlinuz
+kernel ${base_url}/images/pxeboot/vmlinuz inst.stage2=${base_url}
 initrd ${base_url}/images/pxeboot/initrd.img
-imgargs vmlinuz inst.stage2=hd:LABEL=Fedora-SB-ostree-x86_64-40
+imgargs vmlinuz
 boot || goto custom_exit
 
 :option_sb_iso
@@ -42,9 +42,8 @@ boot || goto custom_exit
 
 :option_kn_iso
 set base_url http://download.fedoraproject.org/pub/fedora/linux/releases/40/Silverblue/x86_64/os
-kernel https://github.com/netbootxyz/fedora-assets/releases/download/1.14-aefc8f89/vmlinuz
+kernel https://github.com/netbootxyz/fedora-assets/releases/download/1.14-aefc8f89/vmlinuz root=live:${base_url}/images/install.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0
 initrd https://github.com/netbootxyz/fedora-assets/releases/download/1.14-aefc8f89/initrd
-imgargs vmlinuz root=live:${base_url}/images/install.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0
 boot || goto custom_exit
 
 :option_three
