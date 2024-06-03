@@ -44,7 +44,7 @@ boot || goto custom_exit
 set base_url http://download.fedoraproject.org/pub/fedora/linux/releases/40/Silverblue/x86_64/os
 kernel https://github.com/netbootxyz/fedora-assets/releases/download/1.14-aefc8f89/vmlinuz
 initrd https://github.com/netbootxyz/fedora-assets/releases/download/1.14-aefc8f89/initrd
-imgargs vmlinuz root=live:https://mirrors.hostiserver.com/fedora/fedora/linux/releases/40/Silverblue/x86_64/os/images/install.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0
+imgargs vmlinuz root=live:${base_url}/images/install.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0
 boot || goto custom_exit
 
 :option_three
