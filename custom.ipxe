@@ -8,6 +8,7 @@ clear custom_choice
 menu This is a Test Menu
 item --gap Fedora Atomic
 item option_kn ${space} Fedora Kinoite 40
+item option_kn_raw ${space} Fedora Kinoite 40 (Memdisk ISO)
 item option_kn_iso ${space} Fedora Kinoite 40 (ISO)
 item option_sb ${space} Fedora Silverblue 40
 item option_sb ${space} Fedora Silverblue 40 (2)
@@ -43,10 +44,9 @@ imgargs vmlinuz inst.stage2=${base_url} ip=dhcp
 boot || goto custom_exit
 
 
-:option_sb_iso
-kernel https://github.com/netbootxyz/fedora-assets/releases/download/1.14-aefc8f89/vmlinuz
-initrd https://github.com/netbootxyz/fedora-assets/releases/download/1.14-aefc8f89/initrd
-imgargs vmlinuz inst.stage2=hd:LABEL=Fedora-SB-ostree-x86_64-40
+:option_kn_raw
+kernel https://boot.netboot.xyz/memdisk raw iso
+initrd http://download.fedoraproject.org/pub/fedora/linux/releases/40/Kinoite/x86_64/iso/Fedora-Kinoite-ostree-x86_64-40-1.14.iso
 boot || goto custom_exit
 
 
@@ -62,3 +62,4 @@ chain custom1.ipxe || goto custom
 
 :custom_exit
 exit
+https://fedora.mirror.wearetriple.com/linux/releases/40/Kinoite/x86_64/iso/Fedora-Kinoite-ostree-x86_64-40-1.14.iso
