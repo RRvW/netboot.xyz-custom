@@ -30,7 +30,6 @@ boot || goto custom_exit
 set base_url http://download.fedoraproject.org/pub/fedora/linux/releases/40/Silverblue/x86_64/os
 kernel ${base_url}/images/pxeboot/vmlinuz inst.stage2=${base_url}
 initrd ${base_url}/images/pxeboot/initrd.img
-imgargs vmlinuz
 boot || goto custom_exit
 
 :option_sb_iso
