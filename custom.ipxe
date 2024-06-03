@@ -10,6 +10,7 @@ item --gap Fedora Atomic
 item option_kn ${space} Fedora Kinoite 40
 item option_kn_iso ${space} Fedora Kinoite 40 (ISO)
 item option_sb ${space} Fedora Silverblue 40
+item option_sb ${space} Fedora Silverblue 40 (2)
 item option_sb_iso ${space} Fedora Silverblue 40 (ISO)
 choose custom_choice || goto custom_exit
 echo ${cls}
@@ -28,9 +29,19 @@ boot || goto custom_exit
 :option_sb
 ## taken from https://eu.edge.kernel.org/fedora/releases/40/Kinoite/x86_64/os/boot/grub2/grub.cfg
 set base_url http://download.fedoraproject.org/pub/fedora/linux/releases/40/Silverblue/x86_64/os
-kernel ${base_url}/images/pxeboot/vmlinuz inst.stage2=${base_url}
+kernel ${base_url}/images/pxeboot/vmlinuz inst.stage2=${base_url} ip=dhcp
 initrd ${base_url}/images/pxeboot/initrd.img
 boot || goto custom_exit
+
+
+:option_sb_2
+## taken from https://eu.edge.kernel.org/fedora/releases/40/Kinoite/x86_64/os/boot/grub2/grub.cfg
+set base_url http://download.fedoraproject.org/pub/fedora/linux/releases/40/Silverblue/x86_64/os
+kernel ${base_url}/images/pxeboot/vmlinuz
+initrd ${base_url}/images/pxeboot/initrd.img
+imgargs vmlinuz inst.stage2=${base_url} ip=dhcp
+boot || goto custom_exit
+
 
 :option_sb_iso
 kernel https://github.com/netbootxyz/fedora-assets/releases/download/1.14-aefc8f89/vmlinuz
