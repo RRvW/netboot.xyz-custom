@@ -1,0 +1,33 @@
+#!ipxe
+###
+###  custom menu example
+###
+
+:custom
+clear custom_choice
+menu This is a Test Menu
+item --gap Fedora Atomic
+item option_one ${space} Fedora Kinoite 40
+choose custom_choice || goto custom_exit
+echo ${cls}
+goto ${custom_choice}
+goto custom_exit
+
+:option_one
+## taken from https://eu.edge.kernel.org/fedora/releases/40/Kinoite/x86_64/os/boot/grub2/grub.cfg
+set base_url https://eu.edge.kernel.org/fedora/releases/40/Kinoite/x86_64/os
+kernel ${base_url}/images/pxeboot/vmlinuz inst.stage2=hd:LABEL=Fedora-Knt-ostree-x86_64-40 quiet
+initrd ${base_url}/images/pxeboot/initrd.img
+boot || goto custom_exit
+
+:option_two
+kernel {{ memdisk_location }} raw iso
+initrd http://path.to/iso
+boot || goto custom_exit
+
+:option_three
+echo Chains into another menu...
+chain custom1.ipxe || goto custom
+
+:custom_exit
+exit
