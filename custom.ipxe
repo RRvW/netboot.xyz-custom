@@ -21,17 +21,17 @@ goto custom_exit
 
 :option_kn
 ## taken from https://eu.edge.kernel.org/fedora/releases/40/Kinoite/x86_64/os/boot/grub2/grub.cfg
-set base_url http://download.fedoraproject.org/pub/fedora/linux/releases/40/Kinoite/x86_64/os
+set base_url https://download.fedoraproject.org/pub/fedora/linux/releases/40/Kinoite/x86_64/os
 kernel ${base_url}/images/pxeboot/vmlinuz
 initrd ${base_url}/images/pxeboot/initrd.img
-imgargs vmlinuz root=live:${base_url}/images/install.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 inst.stage2=${base_url}
+imgargs vmlinuz ip=dhcp inst.repo=${base_url}
 boot || goto custom_exit
 
 
 :option_sb
 ## taken from https://eu.edge.kernel.org/fedora/releases/40/Kinoite/x86_64/os/boot/grub2/grub.cfg
 set base_url http://download.fedoraproject.org/pub/fedora/linux/releases/40/Silverblue/x86_64/os
-kernel ${base_url}/images/pxeboot/vmlinuz inst.stage2=${base_url} ip=dhcp
+kernel ${base_url}/images/pxeboot/vmlinuz inst.repo=${base_url} ip=dhcp
 initrd ${base_url}/images/pxeboot/initrd.img
 boot || goto custom_exit
 
