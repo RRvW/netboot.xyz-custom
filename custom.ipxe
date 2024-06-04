@@ -5,6 +5,7 @@
 
 :custom
 clear custom_choice
+set netboot_fedora https://github.com/netbootxyz/fedora-assets/releases/download/1.14-aefc8f89
 menu This is a Test Menu
 item --gap Fedora Atomic
 item option_kn ${space} Fedora Kinoite 40
@@ -23,7 +24,7 @@ goto custom_exit
 set base_url http://download.fedoraproject.org/pub/fedora/linux/releases/40/Kinoite/x86_64/os
 kernel ${base_url}/images/pxeboot/vmlinuz
 initrd ${base_url}/images/pxeboot/initrd.img
-imgargs vmlinuz inst.stage2=hd:LABEL=Fedora-Knt-ostree-x86_64-40
+imgargs vmlinuz root=live:${base_url}/images/install.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 inst.stage2=${base_url}
 boot || goto custom_exit
 
 
@@ -36,7 +37,6 @@ boot || goto custom_exit
 
 
 :option_sb_2
-## taken from https://eu.edge.kernel.org/fedora/releases/40/Kinoite/x86_64/os/boot/grub2/grub.cfg
 set base_url http://download.fedoraproject.org/pub/fedora/linux/releases/40/Silverblue/x86_64/os
 kernel ${base_url}/images/pxeboot/vmlinuz
 initrd ${base_url}/images/pxeboot/initrd.img
@@ -52,8 +52,9 @@ boot || goto custom_exit
 
 :option_kn_iso
 set base_url http://download.fedoraproject.org/pub/fedora/linux/releases/40/Silverblue/x86_64/os
-kernel https://github.com/netbootxyz/fedora-assets/releases/download/1.14-aefc8f89/vmlinuz root=live:${base_url}/images/install.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0
-initrd https://github.com/netbootxyz/fedora-assets/releases/download/1.14-aefc8f89/initrd
+kernel ${netboot_fedora}/vmlinuz
+initrd ${netboot_fedora}/initrd
+imgargs vmlinuz root=live:${base_url}/images/install.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0
 boot || goto custom_exit
 
 :option_three
@@ -62,4 +63,3 @@ chain custom1.ipxe || goto custom
 
 :custom_exit
 exit
-https://fedora.mirror.wearetriple.com/linux/releases/40/Kinoite/x86_64/iso/Fedora-Kinoite-ostree-x86_64-40-1.14.iso
